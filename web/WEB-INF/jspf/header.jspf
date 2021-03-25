@@ -1,3 +1,43 @@
-<%-- any content can be specified here e.g.: --%>
-<%@ page pageEncoding="UTF-8" %>
-<h2>Hello World!</h2>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Juli Nails</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-media.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white"> 
+        <!-- navbar-expand-lg line 4054 -->
+        <!-- navbar-light line 4151 -->
+        <!-- bg-white line 7285 -->
+        <div class="container-fliud" style="display: contents;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+                <!-- navbar-toggler line 3952 -->
+            </button>
+            <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+                <ul class="navbar-nav">
+                    <!-- navbar-nav line 3933 -->
+                    <li class="nav-item">
+                        <a  class="nav-link" aria-current="page" href="#">Обо мне</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" aria-current="page" href="#">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" aria-current="page" href="#">Галерея</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" aria-current="page" href="#">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  class="nav-link" aria-current="page" href="#">Запись</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>    
