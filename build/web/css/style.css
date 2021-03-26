@@ -80,7 +80,7 @@ img {
 	position: relative;
 	height: 600px;
 	object-fit: cover;	
-	background-image: url(Screenshot_2-5.jpg);
+	background-image: url(images/Screenshot_2-5.jpg);
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size: cover;
@@ -277,7 +277,7 @@ img {
 	padding: 2px;
 }
 .gal-box, .gal-box-2 {
-	width: 100%;
+    width: 100%;
     padding-right: var(--bs-gutter-x, 0.75rem);
     padding-left: var(--bs-gutter-x, 0.75rem);
     margin-right: auto;
@@ -522,7 +522,7 @@ textarea {
 	position: relative;
 	height: 550px;
 	object-fit: cover;
-	background-image: url(capture_7.jpeg);
+	background-image: url(images/capture_7.jpeg);
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size: cover;
@@ -531,14 +531,14 @@ textarea {
 
 .end-card {
 	margin: 0;
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    top: 20%;
-    transform: translateX(-50%);
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: left;
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        top: 20%;
+        transform: translateX(-50%);
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: left;
 	width: 590px;
 	height: 350px;
 
