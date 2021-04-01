@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Admin Juli Nails</title>
+    <title>Admin Juli Nail</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style-media.css">
@@ -29,10 +29,10 @@
                         <a  class="nav-link" aria-current="page" href="manicure">Маникюр</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="">Педикюр</a>
+                        <a  class="nav-link" aria-current="page" href="pedicure">Педикюр</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="">Депиляция</a>
+                        <a  class="nav-link" aria-current="page" href="depilation">Депиляция</a>
                     </li>
                     <li class="nav-item">
                         <a  class="nav-link" aria-current="page" href="home">Выйти</a>

@@ -5,7 +5,9 @@
  */
 package servlets;
 
+import entity.Depilation;
 import entity.Manicure;
+import entity.Pedicure;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,7 +17,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sessions.DepilationFacade;
 import sessions.ManicureFacade;
+import sessions.PedicureFacade;
 
 /**
  *
@@ -25,13 +29,26 @@ import sessions.ManicureFacade;
     "/home",
     "/price",
     "/admin",
+    
     "/manicure",
     "/newManItem",
-    "/createManItem"
+    "/createManItem",
+    
+    "/pedicure",
+    "/newPedItem",
+    "/createPedItem",
+    
+    "/depilation",
+    "/newDepItem",
+    "/createDepItem",
 })
 public class MainServlet extends HttpServlet {
     @EJB 
     private ManicureFacade manicureFacade;
+    @EJB 
+    private PedicureFacade pedicureFacade;
+    @EJB 
+    private DepilationFacade depilationFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,7 +71,11 @@ public class MainServlet extends HttpServlet {
                 break;
             case "/price": 
                 List<Manicure> listManicure = manicureFacade.findAll();
+                List<Pedicure> listPedicure = pedicureFacade.findAll();
+                List<Depilation> listDepilation = depilationFacade.findAll();
                 request.setAttribute("listManicure", listManicure);
+                request.setAttribute("listPedicure", listPedicure);
+                request.setAttribute("listDepilation", listDepilation);
                 request.getRequestDispatcher("/WEB-INF/price.jsp").forward(request, response);
                 break;
             case "/admin": 
@@ -83,6 +104,54 @@ public class MainServlet extends HttpServlet {
                 manicureFacade.create(manicure);
                 request.setAttribute("info", "Запись\"" + manicure.getName() + "\" сохранена");
                 request.getRequestDispatcher("/manicure").forward(request, response);
+                break;
+            case "/pedicure": 
+                listPedicure = pedicureFacade.findAll();
+                request.setAttribute("listPedicure", listPedicure);
+                request.getRequestDispatcher("/WEB-INF/adminPedPage.jsp").forward(request, response);
+                break;
+            case "/newPedItem": 
+                request.getRequestDispatcher("/WEB-INF/adminPedForm.jsp").forward(request, response);
+                break;
+            case "/createPedItem": 
+                name = request.getParameter("servPedName");
+                price = request.getParameter("servPedPrice");
+                if("".equals(name) || name == null
+                        ||"".equals(price) || price == null){
+                    request.setAttribute("name", name);
+                    request.setAttribute("price", price);
+                    request.setAttribute("info", "Заполните все поля");
+                    request.getRequestDispatcher("/WEB-INF/adminPedForm.jsp").forward(request, response);
+                    break;
+                }
+                Pedicure pedicure = new Pedicure(name, price);
+                pedicureFacade.create(pedicure);
+                request.setAttribute("info", "Запись\"" + pedicure.getName() + "\" сохранена");
+                request.getRequestDispatcher("/pedicure").forward(request, response);
+                break;
+            case "/depilation": 
+                listDepilation = depilationFacade.findAll();
+                request.setAttribute("listDepilation", listDepilation);
+                request.getRequestDispatcher("/WEB-INF/adminDepPage.jsp").forward(request, response);
+                break;
+            case "/newDepItem": 
+                request.getRequestDispatcher("/WEB-INF/adminDepForm.jsp").forward(request, response);
+                break;
+            case "/createDepItem": 
+                name = request.getParameter("servDepName");
+                price = request.getParameter("servDepPrice");
+                if("".equals(name) || name == null
+                        ||"".equals(price) || price == null){
+                    request.setAttribute("name", name);
+                    request.setAttribute("price", price);
+                    request.setAttribute("info", "Заполните все поля");
+                    request.getRequestDispatcher("/WEB-INF/adminDepForm.jsp").forward(request, response);
+                    break;
+                }
+                Depilation depilation = new Depilation(name, price);
+                depilationFacade.create(depilation);
+                request.setAttribute("info", "Запись\"" + depilation.getName() + "\" сохранена");
+                request.getRequestDispatcher("/depilation").forward(request, response);
                 break;
             default:
         }
