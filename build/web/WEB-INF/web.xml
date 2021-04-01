@@ -17,5 +17,14 @@
             <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
+        <jsp-property-group>
+            <display-name>template2</display-name>
+            <url-pattern>/WEB-INF/adminManPage.jsp</url-pattern>
+            <url-pattern>/WEB-INF/adminPanel.jsp</url-pattern>
+            <url-pattern>/WEB-INF/adminManForm.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <include-prelude>/WEB-INF/jspf/adminHeader.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/adminFooter.jspf</include-coda>
+        </jsp-property-group>
     </jsp-config>
 </web-app>

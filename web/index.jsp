@@ -108,10 +108,10 @@
         </div>
         <div class="col-md-6">
             <form>
-                <input class="top-input" type="" name="" placeholder="Ваше имя" required>
-                <input type="" name="" placeholder="Электронный адрес" required>
-                <textarea placeholder="Ваше сообщение" required></textarea>
-                <button>Отправить</button>
+                <input class="top-input" type="text" name="name" placeholder="Ваше имя" required>
+                <input type="text" name="email" placeholder="Электронный адрес" required>
+                <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+                <button type="submit" name="submit">Отправить</button>
             </form>
         </div>
     </div>

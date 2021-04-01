@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Juli Nails</title>
+    <title>Admin Juli Nails</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style-media.css">
@@ -23,21 +23,23 @@
                 <ul class="navbar-nav">
                     <!-- navbar-nav line 3933 -->
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="home#about">Обо мне</a>
+                        <a  class="nav-link" aria-current="page" href="">Галерея</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="home#service">Услуги</a>
+                        <a  class="nav-link" aria-current="page" href="manicure">Маникюр</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="home#galery">Галерея</a>
+                        <a  class="nav-link" aria-current="page" href="">Педикюр</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="home#contact">Контакты</a>
+                        <a  class="nav-link" aria-current="page" href="">Депиляция</a>
                     </li>
                     <li class="nav-item">
-                        <a  class="nav-link" aria-current="page" href="home#feedback">Запись</a>
+                        <a  class="nav-link" aria-current="page" href="home">Выйти</a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>    
+    </nav>   
+    
+    <div class="container">
