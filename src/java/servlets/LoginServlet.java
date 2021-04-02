@@ -5,37 +5,30 @@
  */
 package servlets;
 
-import entity.Depilation;
-import entity.Manicure;
-import entity.Pedicure;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sessions.DepilationFacade;
-import sessions.ManicureFacade;
-import sessions.PedicureFacade;
+import javax.servlet.http.HttpSession;
+import sessions.UserFacade;
 
 /**
  *
  * @author Alice
  */
-@WebServlet(name = "MainServlet", urlPatterns = {
-    "/home",
-    "/price"
+@WebServlet(name = "LoginServlet", urlPatterns = {
+    "/loginForm", 
+    "/login", 
+    "/logout"
 })
-public class MainServlet extends HttpServlet {
-    @EJB 
-    private ManicureFacade manicureFacade;
-    @EJB 
-    private PedicureFacade pedicureFacade;
-    @EJB 
-    private DepilationFacade depilationFacade;
+public class LoginServlet extends HttpServlet {
+    @EJB
+    private UserFacade userFacade; 
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,18 +45,29 @@ public class MainServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String path = request.getServletPath();
         switch (path) {
-            case "/home": 
-                request.setAttribute("info", "Вы на главной странице");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            case "/loginForm":
+                request.getRequestDispatcher("/loginForm.jsp").forward(request, response);
                 break;
-            case "/price": 
-                List<Manicure> listManicure = manicureFacade.findAll();
-                List<Pedicure> listPedicure = pedicureFacade.findAll();
-                List<Depilation> listDepilation = depilationFacade.findAll();
-                request.setAttribute("listManicure", listManicure);
-                request.setAttribute("listPedicure", listPedicure);
-                request.setAttribute("listDepilation", listDepilation);
-                request.getRequestDispatcher("/WEB-INF/price.jsp").forward(request, response);
+            case "/login":
+                String login = request.getParameter("login");
+                String password = request.getParameter("password");
+                User user = userFacade.findByLogin(login);
+                if(user == null || !password.equals(user.getPassword())){
+                    request.setAttribute("info", "Неправильный логин или пароль");
+                    request.getRequestDispatcher("/loginForm").forward(request, response);
+                    break;
+                }
+                HttpSession httpSession = request.getSession(true);
+                httpSession.setAttribute("user", user);
+                request.setAttribute("info", "Добро пожаловать, " + user.getLogin());
+                request.getRequestDispatcher("/WEB-INF/adminPanel.jsp").forward(request, response);
+                break;
+            case "/logout":
+                httpSession = request.getSession(false);
+                if(httpSession != null){
+                    httpSession.invalidate();
+                }
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
             default:
         }

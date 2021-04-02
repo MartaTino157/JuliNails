@@ -3,7 +3,7 @@
        
         <footer class="footer mt-auto">
             <div class="footer">
-                <a href="admin">Админ панель</a>
+                <a href="loginForm">Админ панель</a>
             </div>
             <div class="last-footer"></div>
 	</footer> 
