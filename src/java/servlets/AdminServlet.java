@@ -31,6 +31,9 @@ import sessions.PedicureFacade;
     "/manicure",
     "/newManItem",
     "/createManItem",
+    "/editManicureItemForm",
+    "/editManicureItem",
+    "/deleteManItem",
     
     "/pedicure",
     "/newPedItem",
@@ -102,6 +105,35 @@ public class AdminServlet extends HttpServlet {
                 manicureFacade.create(manicure);
                 request.setAttribute("info", "Запись\"" + manicure.getName() + "\" сохранена");
                 request.getRequestDispatcher("/manicure").forward(request, response);
+                break;
+            case "/editManicureItemForm":
+                String manicureId = request.getParameter("manServiceId");
+                manicure = manicureFacade.find(Long.parseLong(manicureId));
+                request.setAttribute("manicure", manicure);
+                request.getRequestDispatcher("/WEB-INF/editManItemForm.jsp").forward(request, response);
+                break;
+            case "/editManicureItem":
+                manicureId = request.getParameter("manServiceId");
+                name = request.getParameter("servManName");
+                price = request.getParameter("servManPrice");
+                if("".equals(name) || name == null
+                        ||"".equals(price) || price == null){
+                    request.setAttribute("name", name);
+                    request.setAttribute("price", price);
+                    request.setAttribute("info", "Поля не должны быть пустыми");
+                    request.getRequestDispatcher("/editManicureItemForm").forward(request, response);
+                    break;
+                }
+                manicure = manicureFacade.find(Long.parseLong(manicureId));
+                manicure.setName(name);
+                manicure.setPrice(price);
+                manicureFacade.edit(manicure);
+                request.setAttribute("manicureId", manicureId);
+                request.setAttribute("info", "Запись\"" + manicure.getName() + "\" изменена");
+                request.getRequestDispatcher("/manicure").forward(request, response);
+                break;
+            case "/deleteManItem":
+                
                 break;
             case "/pedicure": 
                 List<Pedicure> listPedicure = pedicureFacade.findAll();

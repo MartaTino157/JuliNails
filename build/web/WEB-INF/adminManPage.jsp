@@ -17,7 +17,7 @@
             <tr>
                 <td>${manService.name}</td>
                 <td>${manService.price}€</td>
-                <td>Изменить</td>
+                <td><a href="editManicureItemForm?manServiceId=${manService.id}">Изменить</a></td>
                 <td>Удалить</td>
             </tr>
         </tbody> 

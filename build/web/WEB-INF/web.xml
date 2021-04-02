@@ -24,6 +24,7 @@
             <url-pattern>/WEB-INF/adminPanel.jsp</url-pattern>
             <url-pattern>/WEB-INF/adminPedForm.jsp</url-pattern>
             <url-pattern>/WEB-INF/adminManForm.jsp</url-pattern>
+            <url-pattern>/WEB-INF/editManItemForm.jsp</url-pattern>
             <url-pattern>/WEB-INF/adminDepForm.jsp</url-pattern>
             <url-pattern>/WEB-INF/adminPedPage.jsp</url-pattern>
             <page-encoding>UTF-8</page-encoding>

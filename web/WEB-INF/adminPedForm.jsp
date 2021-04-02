@@ -1,5 +1,6 @@
-<p>${info}</p>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<p>${info}</p>
 <form action="createPedItem">
     <div class="group-form">
         <label for="servPedName">Название услуги</label>
