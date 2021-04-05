@@ -17,8 +17,8 @@
             <tr>
                 <td>${depService.name}</td>
                 <td>${depService.price}€</td>
-                <td>Изменить</td>
-                <td>Удалить</td>
+                <td><a href="editDepilationItemForm?depServiceId=${depService.id}">Изменить</a></td>
+                <td><a href="deleteDepItem?depServiceId=${depService.id}">Удалить</a></td>
             </tr>
         </tbody> 
     </c:forEach> 

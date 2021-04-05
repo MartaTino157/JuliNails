@@ -38,10 +38,16 @@ import sessions.PedicureFacade;
     "/pedicure",
     "/newPedItem",
     "/createPedItem",
+    "/editPedicureItemForm",
+    "/editPedicureItem",
+    "/deletePedItem",
     
     "/depilation",
     "/newDepItem",
-    "/createDepItem"
+    "/createDepItem",
+    "/editDepilationItemForm",
+    "/editDepilationItem",
+    "/deleteDepItem"
 })
 public class AdminServlet extends HttpServlet {
     @EJB 
@@ -133,7 +139,12 @@ public class AdminServlet extends HttpServlet {
                 request.getRequestDispatcher("/manicure").forward(request, response);
                 break;
             case "/deleteManItem":
-                
+                manicureId = request.getParameter("manServiceId");
+                manicure = manicureFacade.find(Long.parseLong(manicureId));
+                manicureFacade.remove(manicure);
+                request.setAttribute("manicureId", manicureId);
+                request.setAttribute("info", "Запись\"" + manicure.getName() + "\" удалена");
+                request.getRequestDispatcher("/manicure").forward(request, response);
                 break;
             case "/pedicure": 
                 List<Pedicure> listPedicure = pedicureFacade.findAll();
@@ -159,6 +170,40 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("info", "Запись\"" + pedicure.getName() + "\" сохранена");
                 request.getRequestDispatcher("/pedicure").forward(request, response);
                 break;
+            case "/editPedicureItemForm":
+                String pedicureId = request.getParameter("pedServiceId");
+                pedicure = pedicureFacade.find(Long.parseLong(pedicureId));
+                request.setAttribute("pedicure", pedicure);
+                request.getRequestDispatcher("/WEB-INF/editPedItemForm.jsp").forward(request, response);
+                break;
+            case "/editPedicureItem":
+                pedicureId = request.getParameter("pedServiceId");
+                name = request.getParameter("servPedName");
+                price = request.getParameter("servPedPrice");
+                if("".equals(name) || name == null
+                        ||"".equals(price) || price == null){
+                    request.setAttribute("name", name);
+                    request.setAttribute("price", price);
+                    request.setAttribute("info", "Поля не должны быть пустыми");
+                    request.getRequestDispatcher("/editPedicureItemForm").forward(request, response);
+                    break;
+                }
+                pedicure = pedicureFacade.find(Long.parseLong(pedicureId));
+                pedicure.setName(name);
+                pedicure.setPrice(price);
+                pedicureFacade.edit(pedicure);
+                request.setAttribute("pedicureId", pedicureId);
+                request.setAttribute("info", "Запись\"" + pedicure.getName() + "\" изменена");
+                request.getRequestDispatcher("/pedicure").forward(request, response);
+                break;
+            case "/deletePedItem":
+                pedicureId = request.getParameter("pedServiceId");
+                pedicure = pedicureFacade.find(Long.parseLong(pedicureId));
+                pedicureFacade.remove(pedicure);
+                request.setAttribute("pedicureId", pedicureId);
+                request.setAttribute("info", "Запись\"" + pedicure.getName() + "\" удалена");
+                request.getRequestDispatcher("/pedicure").forward(request, response);
+                break;
             case "/depilation": 
                 List<Depilation> listDepilation = depilationFacade.findAll();
                 request.setAttribute("listDepilation", listDepilation);
@@ -181,6 +226,40 @@ public class AdminServlet extends HttpServlet {
                 Depilation depilation = new Depilation(name, price);
                 depilationFacade.create(depilation);
                 request.setAttribute("info", "Запись\"" + depilation.getName() + "\" сохранена");
+                request.getRequestDispatcher("/depilation").forward(request, response);
+                break;
+            case "/editDepilationItemForm":
+                String depilationId = request.getParameter("depServiceId");
+                depilation = depilationFacade.find(Long.parseLong(depilationId));
+                request.setAttribute("depilation", depilation);
+                request.getRequestDispatcher("/WEB-INF/editDepItemForm.jsp").forward(request, response);
+                break;
+            case "/editDepilationItem":
+                depilationId = request.getParameter("depServiceId");
+                name = request.getParameter("servDepName");
+                price = request.getParameter("servDepPrice");
+                if("".equals(name) || name == null
+                        ||"".equals(price) || price == null){
+                    request.setAttribute("name", name);
+                    request.setAttribute("price", price);
+                    request.setAttribute("info", "Поля не должны быть пустыми");
+                    request.getRequestDispatcher("/editDepilationItemForm").forward(request, response);
+                    break;
+                }
+                depilation = depilationFacade.find(Long.parseLong(depilationId));
+                depilation.setName(name);
+                depilation.setPrice(price);
+                depilationFacade.edit(depilation);
+                request.setAttribute("depilationId", depilationId);
+                request.setAttribute("info", "Запись\"" + depilation.getName() + "\" изменена");
+                request.getRequestDispatcher("/depilation").forward(request, response);
+                break;
+            case "/deleteDepItem":
+                depilationId = request.getParameter("depServiceId");
+                depilation = depilationFacade.find(Long.parseLong(depilationId));
+                depilationFacade.remove(depilation);
+                request.setAttribute("depilationId", depilationId);
+                request.setAttribute("info", "Запись\"" + depilation.getName() + "\" удалена");
                 request.getRequestDispatcher("/depilation").forward(request, response);
                 break;
         }

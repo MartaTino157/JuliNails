@@ -12,4 +12,5 @@
         <input type="text" class="form-control" id="servManPrice" name="servManPrice" value="${manicure.price}"> 
     </div>
     <button type="submit" name="submit" class="btn btn-primary">Сохранить</button>
+    <a type="button" class="btn btn-secondary" href="manicure">Отмена</a>
 </form>
