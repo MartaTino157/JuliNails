@@ -7,11 +7,15 @@ package servlets;
 
 import entity.Depilation;
 import entity.Manicure;
+import entity.Messages;
 import entity.Pedicure;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Properties;
 import javax.ejb.EJB;
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sessions.DepilationFacade;
 import sessions.ManicureFacade;
+import sessions.MessagesFacade;
 import sessions.PedicureFacade;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
+
 
 /**
  *
@@ -27,15 +38,19 @@ import sessions.PedicureFacade;
  */
 @WebServlet(name = "MainServlet", urlPatterns = {
     "/home",
-    "/price"
+    "/price",
+    "/sendMessage"
 })
 public class MainServlet extends HttpServlet {
+    @EJB 
+    private MessagesFacade messagesFacade;
     @EJB 
     private ManicureFacade manicureFacade;
     @EJB 
     private PedicureFacade pedicureFacade;
     @EJB 
     private DepilationFacade depilationFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,6 +67,50 @@ public class MainServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String path = request.getServletPath();
         switch (path) {
+            case "/sendMessage":
+                String name = request.getParameter("customerName");
+                String from = request.getParameter("customerEmail");
+                String message = request.getParameter("message");
+                if("".equals(name) || name == null
+                        ||"".equals(from) || from == null
+                        ||"".equals(message) || message == null){
+                    request.setAttribute("name", name);
+                    request.setAttribute("from", from);
+                    request.setAttribute("message", message);
+                    request.setAttribute("info", "Заполните все поля");
+                    request.getRequestDispatcher("/home").forward(request, response);
+                    break;
+                }
+                String to = "gusar.alice@gmail.com";
+                // Предполагая, что вы отправляете электронное письмо с localhost
+                String host = "localhost";
+                  // Получить свойства системы
+                Properties properties =   System.getProperties();
+                  // Настроить почтовый сервер
+                properties.setProperty("mail.smtp.host", host);
+                  // Получение объекта Session по умолчанию
+                Session session = Session.getDefaultInstance(properties);
+                try {
+                    // Создание объекта MimeMessage по умолчанию
+                    MimeMessage mineMessage = new MimeMessage(session);
+                    // от
+                    mineMessage.setFrom(new InternetAddress(from));
+                     // кому
+                    mineMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                     // тема письма
+                    mineMessage.setSubject("У вас новая запись!");
+                     // Теперь установите фактическое сообщение
+                    mineMessage.setText(message);
+                     // Отправить сообщение
+                    Transport.send(mineMessage);
+                    Messages messages = new Messages(name, from, message, new GregorianCalendar().getTime());
+                    messagesFacade.create(messages);
+                    request.setAttribute("info", "Ваше сообщение успешно отправлено");
+                    request.getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+                } catch (MessagingException mex) {
+                    mex.printStackTrace();
+                }
+                break;
             case "/home": 
                 request.setAttribute("info", "Вы на главной странице");
                 request.getRequestDispatcher("/index.jsp").forward(request, response);

@@ -69,7 +69,21 @@
         </div>
     </div>
 </section>
-<!--galery-->
+<section class="galery">
+    <a name="galery"></a>
+    <h3>Мои работы</h3>
+    <div class="gal-box">
+        <img class="img-1 rounded" src="css/images/capture_1.jpg">
+        <img class="img-2 rounded" src="css/images/capture_2.jpg">
+        <img class="img-3 rounded" src="css/images/capture_3.jpg">
+        <img class="img-4 rounded" src="css/images/capture_4.jpg">
+    </div>
+    <div class="gal-box-2">
+        <img class="img-5 rounded" src="css/images/capture_5.jpg">
+        <img class="img-6 rounded" src="css/images/capture_6.jpg">
+        <img class="img-7 rounded" src="css/images/capture_7.jpeg">
+    </div>
+</section>
 <section class="contact">
     <a name="contact"></a>
     <div class="cont-fliud">
@@ -107,10 +121,10 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form>
-                <input class="top-input" type="text" name="name" placeholder="Ваше имя" required>
-                <input type="text" name="email" placeholder="Электронный адрес" required>
-                <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+            <form action="sendMessage">
+                <input class="top-input" type="text" id="customerName" name="customerName" value="${customerName}" placeholder="Ваше имя" required>
+                <input type="text" id="customerEmail" name="customerEmail" value="${customerEmail}" placeholder="Электронный адрес" required>
+                <textarea id="message" name="message" value="${message}" maxlength="255" placeholder="Ваше сообщение" required></textarea>
                 <button type="submit" name="submit">Отправить</button>
             </form>
         </div>
